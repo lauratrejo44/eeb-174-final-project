@@ -1,0 +1,9 @@
+conceptual basis: I am interested in examaning the evolutionary history of a clade. 
+
+Discussion of the data and computational challenges: I will use the occurence data downloaded as a csv file from PBDB. I will use this data to reconstruct the fossil ranges. I need to extract the fossil range and locality data, format it for quantitave analysis and visualize the results.
+
+Number of unique species for 3 groups:18,847;117,706;1,086,956
+
+order of preference:Veniella, Portofiel,Dinosauria
+
+shell commands used to extract unique names: uniq, cut, tail, and sort.
