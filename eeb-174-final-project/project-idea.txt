@@ -1,9 +1,19 @@
-conceptual basis: I am interested in examaning the evolutionary history of a clade. 
+conceptual basis: I am interested in examaning the evolutionary history of birds in South America specifically in Guatemala.
 
-Discussion of the data and computational challenges: I will use the occurence data downloaded as a csv file from PBDB. I will use this data to reconstruct the fossil ranges. I need to extract the fossil range and locality data, format it for quantitave analysis and visualize the results.
+Discussion of the data and computational challenges: I will use the occurence data downloaded as a csv file from PBDB. I will use this data to calculate speciation and extinction rates through time.
+I need to extract the fossil range and locality data, format it for quantitave analysis and visualize the results.
 
-Number of unique species for 3 groups:18,847;117,706;1,086,956
+Number of unique species for 3 clades:
+Orinthae: 196
+Felidae: 36
+Chelonioldea: 2 
 
-order of preference:Veniella, Portofiel,Dinosauria
+order of preference:Orinthae, Felidae, Chelonioldea
 
 shell commands used to extract unique names: uniq, cut, tail, and sort.
+cut -d ',' -f 6 pbdb_data.csv |tail -n+18|sort |uniq|wc -l 
+cut -d ',' -f 6 jaguars.csv |tail -n+18|sort |uniq|wc -l 
+cut -d ',' -f 6 seaturtle.csv |tail -n+18|sort |uniq|wc -l 
+
+
+
