@@ -1,1 +1,15 @@
 pseudocode1
+
+Need to generate a pyrate input file
+
+#need to prepare fossil occurence table in a csv with four columns taxon name, status of being extinct or extanct, min age, and max age. 
+Each row representes a fossil occurence. 
+read file 
+create a file that we will write into 
+split to extract columns 
+create a function that returns 0 or 1 for extinct or extanct 
+write into created file
+close file 
+
+
+

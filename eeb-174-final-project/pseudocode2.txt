@@ -1,1 +1,9 @@
 pseudocode 2
+
+#Calculate speciation and extinction rates through time 
+#plot speciation and extinction rates through time
+
+use mG: gamma model 
+use qshift 
+create a file that contains the times that delimit differennt epochs 
+
