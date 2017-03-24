@@ -1,0 +1,63 @@
+---
+title: "Graphs"
+author: "Laura Trejo"
+date: "March 14, 2017"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+
+setwd("/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project")
+birds <- read.csv("/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/anom_ages.csv", header = F, as.is = T)
+names(birds) <- c ("genus", "species", "minage", "maxage")
+
+head(birds)
+
+
+```
+
+```{r}
+bird_occ <- ggplot(birds, aes (x = species, maxage, colour = genus))
+bird_occ + geom_linerange(aes(ymin = minage, ymax = maxage + 0.5)) + theme(legend.position="none") +  coord_flip() +  theme(axis.text.y = element_text(size=3)) + scale_y_continuous(limits=c(0, 50), expand = c(0, 0), breaks=c(0, 10, 20, 30, 40, 50)) + labs(title = "Anom Fossil Occurrences", x = "Species", y = "Ma ago") + theme(plot.title = element_text(hjust = 0.5, size=22, face = "bold"), axis.title =element_text(size=20)) 
+
+
+
+```
+
+```{r}
+#library (forcats)
+#bird_occ <- ggplot(birds, aes( x = fct_reorder(species, minage, .desc = T), maxage, colour = genus))
+
+#bird_occ + geom_linerange(aes(ymin = minage, ymax = maxage + 0.5)) + theme(legend.position="none") +  coord_flip() +  theme(axis.text.y = element_text(size=3)) + scale_y_continuous(limits=c(0, 50), expand = c(0, 0), breaks=c(0, 10, 20, 30, 40, 50)) + labs(title = "Ornithurae Fossil Occurrences", x = "Species", y = "Ma ago") + theme(plot.title = element_text(hjust = 0.5, size=22, face = "bold"), axis.title =element_text(size=20)) 
+```
+
+```{r}
+#bird_occ + geom_linerange(aes(ymin = minage, ymax = maxage + 0.5)) + theme(legend.position="none") +  coord_flip() +  theme(axis.text.y = element_text(size=3)) + scale_y_continuous(limits=c(0, 50), expand = c(0, 0), breaks=c(0, 10, 20, 30, 40, 50)) + labs(title = "Ornithurae Fossil Occurrences", x = "Species", y = "Ma ago") + theme(plot.title = element_text(hjust = 0.5, size=22, face = "bold"), axis.title =element_text(size=20)) + facet_wrap(~ genus, scales = "free")
+```
+
+```{r}
+#library(tidyr)
+#library(dplyr)
+
+#diversity <- birds %>% gather(key = type, value = age, minage, maxage) %>% mutate(count = ifelse(type == "maxage", 1, -1)) %>% group_by(age) %>% summarise(count = sum(count))  %>%  arrange(-age, -count) %>% mutate(diversity = cumsum(count)) 
+
+#ggplot(diversity, aes(x = age, y = diversity)) + geom_step()
+
+#diversity <- canids %>% gather(key = type, value = age, minage, maxage)
+
+#head(diversity)
+
+#diversity <- diversity %>% mutate(count = ifelse(type == "maxage", 1, -1))
+
+#head(diversity)
+
+#diversity <- diversity %>% group_by(age) 
+#head(diversity)
+#diversity <- diversity %>% arrange(-age, -count) 
+#head(diversity)
+#diversity <- diversity %>% mutate(diversity = cumsum(count)) 
+#head(diversity)
+#ggplot(diversity, aes(x = age, y = diversity)) + geom_step()
+```
+

@@ -1,0 +1,262 @@
+---
+title: "Speciation, Extinction, and Diversification rates of Neotropic Birds in the Neoave Clade"
+author: "Laura Trejo"
+date: "March 24, 2017"
+geometry: margin=1in
+output: 
+  pdf_document: default
+fontsize: 12pt
+
+---
+## Introduction
+The Resplendent Quetzals are regarded as one of the most beautiful birds in the world, with their colorful feathers and long tail. They are found in the Southern Mexico and Central America. The resplendent quetzal is the national bird and the name of the currency in Guatemala. Quetzals are part of the order Trogonifromes. This project arose as a personal interest due to my Guatemalan heritage. It is also came about due to the resplendent quetzal having a status of Near Threatened. Although considered at a low risk, understanding what occurs to its habitat is crucial in order to protect these beautiful species.
+
+Fossil records trace back to 49 million years ago, the early Eocene. The greatest diversity of these birds is in the neotropics with some species found in southeast Asia.
+Although these birds are found in the neotropic regions, their exact origin is not known. The as earliest fossil was found in Denmark in the Eocene Epoch, 54 mya. Others have been found in Germany, Switzerland, and France. Thus Trogons are thought to have an Old World Origin.
+
+Using occurrence data from Paleobiology Database we can see that there is not many occurrences available for the trogon family. I expanded my search to include all neotropic birds, in order to better understand the evolution of the Trogon family in the Neotropical New World. I chose to focus on the evolution of the clade Neoaves, particularly in in the Neotropic regions; North and South America, not including United States nor Canada.
+
+The overall goal of this project was to explore the speciation, extinction, and diversification rates of this clade Eventually an attempt in recreating the phylogeny of Neoaves was made by plotting a time-scaled phylogeny against the international geological time scale
+
+![Resplendant Quetzal](/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/Final paper/Quetzal.png)
+
+![Map of the world showing distribution of Trogons in black](/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/map.png) 
+
+\clearpage
+
+
+
+
+## Methods
+
+### Map of Trogon Occurences 
+
+```{python, eval = F}
+from pylab import rcParams
+%matplotlib inline
+rcParams['figure.figsize'] = (8,6) 
+from mpl_toolkits.basemap import Basemap
+# Create empty lists for the data we are interested in.
+latitude = []
+longitude = []
+timestrings = []
+
+#read in the file 
+in_file = open ( "/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/trogones.csv")
+
+
+#get rid of the header
+in_file.readline()
+    
+   
+    # Store the latitudes and longitudes in the appropriate lists.
+for line in in_file:
+    lats = line.split('","')[19]
+    lons = line.split('","')[18]
+    latitude.append(float(lats))
+    longitude.append(float(lons))
+    import matplotlib.pyplot as plt
+import numpy as np
+import PIL
+# Make the plot larger.
+plt.figure(figsize=(16,12))
+
+eq_map = Basemap(projection='robin', resolution = 'l', area_thresh = 1000.0,lat_0=0, lon_0=-130)
+eq_map.drawcoastlines()
+eq_map.drawcountries()
+eq_map.fillcontinents(color = 'gray')
+eq_map.bluemarble()
+eq_map.drawmapboundary()
+eq_map.drawmeridians(np.arange(0, 360, 30))
+eq_map.drawparallels(np.arange(-90, 90, 30))
+ 
+x,y = eq_map(longitude, latitude)
+eq_map.plot(x, y, 'ro', markersize=6)
+
+
+plt.figtext(.5,.9,'Stratigraphic Location: Trogones', fontsize=40, ha='center')
+
+
+```
+![Map of PBDB occurences](/home/eeb177-student/map.png)
+
+###Creating a list of species and determing extant species for Pyrate Analysis 
+
+```{python, eval = F}
+import csv
+
+output = open("neoaves_extant.csv", "w")
+#create and define function that takes an integer from the min_ma as the argument and returns either extanct or extinct
+
+def still_exists(string):
+    for ma in (item [11]):
+         if ma == '0':
+            exists.append (0)
+            output.write(item[5] + '\n')
+            return ('0')
+         else:
+            exists.append(1)
+            return('1')
+            
+
+#read in the file 
+in_file = open ( "/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/neoaves/neoaves.csv")
+#make a dictionary of taxon of either extinct or extanct 
+#mames a list of 0 or 1 
+taxon = {}
+exists = []
+
+#get rid of the header
+in_file.readline()
+
+
+for line in in_file:
+    
+    #split so we can access the different columns in the lines 
+    item = line.split('","')
+    
+    taxons = item [5]
+    ma = item [11]
+
+    #populate our dictionaries
+    taxon[taxons] = still_exists (ma)
+    
+list_species = [] #empty list to store species in
+       
+for line in in_file:
+    species = line.split('","')[6]
+    name_of_species = line.split('","')[5]
+    if "species" in species:  
+        list_species.append(name_of_species)
+number_species = len ( list_species)
+
+```
+
+###Output to R for fossil occurrences and time scaled phylogeny 
+```{python, eval = F}
+import csv
+
+in_file = open ( "/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/neoaves/neoaves.csv")
+
+
+#get rid of the header
+in_file.readline()
+
+
+# use default dict
+from collections import defaultdict
+species_ranges = defaultdict(list)
+
+
+       
+for line in in_file:
+    name_of_species = line.split('","')[5]
+    minage = line.split('","')[11]
+    maxage = line.split('","')[10]
+    mean_age = (float(minage) + float(maxage))/2
+    species_ranges[name_of_species].append(mean_age) # add species as keys
+output = open("aves-ranges.csv", "w")
+output1 = open("neoaves_trees.csv", "w")
+header = "{}, {}, {},\n".format("Species","FA", "LA")
+output1.write(header)
+
+#get oldest and youngest
+#species_ranges.values()
+for key in species_ranges.keys():
+    ages = species_ranges[key]
+    minage = min(ages)
+    maxage = max(ages)
+    genus = key.split(" ")[0]
+    species = key
+    outline= "{},{},{},{}\n".format(genus, species, minage, maxage)
+    output.write(outline)
+    outline1 = "{},{},{},\n".format(species, minage, maxage)
+    
+    output1.write(outline1)
+```
+###Plotting Occurences in R
+```{r, eval= F}
+library ( ggplot2)
+install.packages("forcats", repos="http://cran.rstudio.com/")
+library (forcats)
+setwd("/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/Weekly_HW")
+
+aves <- read.csv("/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/Weekly_HW/aves-ranges.csv", header = F, as.is = T)
+
+names(aves) <- c( "genus", "species", "minage", "maxage")
+head(aves)
+
+aves_occ <- ggplot(aves, aes( x = fct_reorder (species, minage, .desc = T), maxage, colour = genus))
+# everything
+aves_occ + geom_linerange(aes(ymin = minage, ymax = maxage + 0.5)) + theme(legend.position="none") +  coord_flip() +  theme(axis.text.y = element_text(size=3)) + scale_y_continuous(limits=c(0, 50), expand = c(0, 0), breaks=c(0, 10, 20, 30, 40, 50)) + labs(title = "Neoaves Fossil Occurrences", x = "Species", y = "Ma ago") + theme(plot.title = element_text(hjust = 0.5, size=22, face = "bold"), axis.title =element_text(size=20))
+
+```
+###Plotting a time-scaled phylogeny against the international geological time scale
+```{r, eval= F}
+install.packages("strap")
+library(strap)
+neoaves <- read.csv("/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/Weekly_HW/neoaves_Tree.csv")
+
+data("neoaves")
+
+tree_l <- DatePhylo(neoaves$tree, neoaves$ages, method="equal", rlen=1)
+geoscalePhylo(tree=tree_l, boxes="Age", cex.tip=0.4)
+# Plotting the tree with the stratigraphical ranges included
+geoscalePhylo(tree=tree_l, ages=neoaves$ages, boxes="Age", cex.tip=0.4)
+# Including all temporal units into the stratigraphic column
+geoscalePhylo(tree_l, neoaves$ages, units = c("Eon","Era","Period","Epoch","Age"),
+boxes="Age", cex.tip=0.4)
+# Plotting the numerical values on the time scale at Age resolution
+geoscalePhylo(tree_l, neoaves$ages, units = c("Eon","Era","Period","Epoch","Age"),
+boxes="Age", cex.tip=0.4,tick.scale="Age")
+
+```
+###Pyrate R Script 
+```{r, eval= F}
+#! /bin/bash
+
+# Script to run full pyrate pipeline on Neoaves
+
+
+# download the data
+wget -O canid_occ.csv "https://paleobiodb.org/data1.2/occs/list.csv?base_name=neoaves&cc=NOA,SOA,^CA,^US&show=acconly"
+
+# use the R script we had created to format the data into a pyrate-friendly file
+# NOTE!
+# if the output files from the R script already exist in the working directory, 
+# THIS STEP WILL NOT WORK!
+# The existent files are NOT overwritten!
+Rscript process_ave_data.R
+
+# Verify that the data formatting worked, and redirect the output into a file called 
+# data_summary.txt so that it may be inspected later.
+python ~/PyRate/PyRate.py newaves_PyRate.py -data_info > data_summary.txt
+
+# And then, run PyRate!
+python ~/PyRate/PyRate.py newaves_PyRate.py -n 1000000
+```
+
+## Results
+
+![](/home/eeb177-student/Desktop/occurences.png)
+![](/home/eeb177-student/Desktop/speciation.png)
+![](/home/eeb177-student/Desktop/extinction.png)
+![](/home/eeb177-student/Desktop/diversification.png)
+
+![Plot of a time-scaled phylogeny against the international geological time scale](/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/paleo.png) 
+
+
+\clearpage
+
+
+## Discussion 
+
+## GitHub Link
+https://github.com/lauratrejo44/eeb-174-final-project/tree/master/eeb-174-final-project
+
+
+\clearpage
+
+
+## References
+

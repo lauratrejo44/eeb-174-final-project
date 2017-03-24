@@ -1,0 +1,27 @@
+---
+title: "occurences"
+author: "Laura Trejo"
+date: "March 23, 2017"
+output: html_document
+---
+
+```{r}
+library ( ggplot2)
+install.packages("forcats", repos="http://cran.rstudio.com/")
+library (forcats)
+setwd("/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/Weekly_HW")
+
+aves <- read.csv("/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/Weekly_HW/aves-ranges.csv", header = F, as.is = T)
+
+names(aves) <- c( "genus", "species", "minage", "maxage")
+head(aves)
+
+aves_occ <- ggplot(aves, aes( x = fct_reorder (species, minage, .desc = T), maxage, colour = genus))
+# everything
+aves_occ + geom_linerange(aes(ymin = minage, ymax = maxage + 0.5)) + theme(legend.position="none") +  coord_flip() +  theme(axis.text.y = element_text(size=3)) + scale_y_continuous(limits=c(0, 50), expand = c(0, 0), breaks=c(0, 10, 20, 30, 40, 50)) + labs(title = "Neoaves Fossil Occurrences", x = "Species", y = "Ma ago") + theme(plot.title = element_text(hjust = 0.5, size=22, face = "bold"), axis.title =element_text(size=20))
+
+
+
+
+```
+

@@ -1,0 +1,53 @@
+Podiceps
+Rallidae
+Columbidae
+Falconidae
+Coccyzus
+Passeriformes
+Falco
+Puffinus lherminieri
+Pterodroma cahow
+Phaethon lepturus
+Puffinus lherminieri
+Pterodroma cahow
+Zenaida
+Columbina
+Puffinus
+Porzana
+Athene
+Puffinus
+Porphyrula
+Rallus longirostris
+Corvus
+Eudocimus
+Nyctanassa violacea
+Eudocimus
+Pandion
+Accipiter
+Caracara creightoni
+Columba
+Zenaida
+Tyto
+Passeriformes
+Puffinus lherminieri
+Nyctanassa violacea
+Eudocimus
+Pandion
+Accipiter
+Falco sparverius
+Rallus
+Columba
+Zenaida
+Tyto
+Athene
+Colaptes
+Contopus
+Petrochelidon
+Spizella
+Sturnella
+Passeriformes
+Puffinus lherminieri
+Buteo jamaicensis
+Fulica podagrica
+Phalacrocorax
+Fulmarus glacialis
