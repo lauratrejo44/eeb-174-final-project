@@ -6,17 +6,17 @@ geometry: margin=1in
 output: 
   pdf_document: default
 fontsize: 12pt
-
+bibliography: biblio.bib     
+csl: methods-in-ecology-and-evolution.csl
 ---
 ## Introduction
 The Resplendent Quetzals are regarded as one of the most beautiful birds in the world, with their colorful feathers and long tail. They are found in the Southern Mexico and Central America. The resplendent quetzal is the national bird and the name of the currency in Guatemala. Quetzals are part of the order Trogonifromes. This project arose as a personal interest due to my Guatemalan heritage. It is also came about due to the resplendent quetzal having a status of Near Threatened. Although considered at a low risk, understanding what occurs to its habitat is crucial in order to protect these beautiful species.
 
-Fossil records trace back to 49 million years ago, the early Eocene. The greatest diversity of these birds is in the neotropics with some species found in southeast Asia.
-Although these birds are found in the neotropic regions, their exact origin is not known. The as earliest fossil was found in Denmark in the Eocene Epoch, 54 mya. Others have been found in Germany, Switzerland, and France. Thus Trogons are thought to have an Old World Origin.
+Fossil records trace back to 49 million years ago, the early Eocene. The greatest diversity of these birds is in the neotropics with some species found in southeast Asia.Although these birds are found in the neotropic regions, their exact origin is not known. The as earliest fossil was found in Denmark in the Eocene Epoch, 54 mya. Others have been found in Germany, Switzerland, and France. Thus Trogons are thought to have an Old World Origin.[@moyle2005phylogeny; @mayr2003phylogenetic; @skutch1999trogons]
 
 Using occurrence data from Paleobiology Database we can see that there is not many occurrences available for the trogon family. I expanded my search to include all neotropic birds, in order to better understand the evolution of the Trogon family in the Neotropical New World. I chose to focus on the evolution of the clade Neoaves, particularly in in the Neotropic regions; North and South America, not including United States nor Canada.
 
-The overall goal of this project was to explore the speciation, extinction, and diversification rates of this clade Eventually an attempt in recreating the phylogeny of Neoaves was made by plotting a time-scaled phylogeny against the international geological time scale
+The overall goal of this project was to explore the speciation, extinction, and diversification rates of this clade Eventually an attempt in recreating the phylogeny of Neoaves was made by plotting a time-scaled phylogeny against the international geological time scale.
 
 ![Resplendant Quetzal](/home/eeb177-student/Desktop/eeb-177/eeb-174-final-project/Final paper/Quetzal.png)
 
@@ -250,6 +250,7 @@ python ~/PyRate/PyRate.py newaves_PyRate.py -n 1000000
 
 
 ## Discussion 
+Through the analysis using PyRaTe we are able to see the speciation, extinction, and diversification rates. All three graphs had a significantly large confidence interval as shown by the shaded area around the mean rate estimates, the solid lines. Speciation is the formation of the new and distinct species while diversification rate is the species becoming more diverse. Here we see that the extinction and speciation rates were very similar. Both had a decrease in rates around 38 MYA. Along the same time the diversification rates has a short peak. The diversification rate is shown constant throughout time and sees a decrease more recently in the last million years. The occurrence data shows us that there has been much more occurrences of Neotropic birds in the past two million years.In the phylogeny graph we see much more species originating in the Devonian period.  Mapping the Neoave occurrence data through time could let us visualize how these Neotropics came about.  
 
 ## GitHub Link
 https://github.com/lauratrejo44/eeb-174-final-project/tree/master/eeb-174-final-project
@@ -259,4 +260,3 @@ https://github.com/lauratrejo44/eeb-174-final-project/tree/master/eeb-174-final-
 
 
 ## References
-

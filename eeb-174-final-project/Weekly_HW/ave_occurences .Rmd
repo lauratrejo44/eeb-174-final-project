@@ -18,7 +18,7 @@ head(aves)
 
 aves_occ <- ggplot(aves, aes( x = fct_reorder (species, minage, .desc = T), maxage, colour = genus))
 # everything
-aves_occ + geom_linerange(aes(ymin = minage, ymax = maxage + 0.5)) + theme(legend.position="none") +  coord_flip() +  theme(axis.text.y = element_text(size=3)) + scale_y_continuous(limits=c(0, 50), expand = c(0, 0), breaks=c(0, 10, 20, 30, 40, 50)) + labs(title = "Neoaves Fossil Occurrences", x = "Species", y = "Ma ago") + theme(plot.title = element_text(hjust = 0.5, size=22, face = "bold"), axis.title =element_text(size=20))
+aves_occ + geom_linerange(aes(ymin = minage, ymax = maxage + 0.5)) + theme(legend.position="none") +  coord_flip() +  theme(axis.text.y = element_text(size=8)) + scale_y_continuous(limits=c(0, 50), expand = c(0, 0), breaks=c(0, 10, 20, 30, 40, 50)) + labs(title = "Neoaves Fossil Occurrences", x = "Species", y = "Ma ago") + theme(plot.title = element_text(hjust = 0.5, size=22, face = "bold"), axis.title =element_text(size=20))
 
 
 
